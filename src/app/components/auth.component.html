@@ -1,0 +1,16 @@
+<form [formGroup]="authForm">
+    <div class="form-group">
+      <label>API KEY</label>
+      <input type="text" class="form-control" formControlName="key">
+      <small class="form-text text-muted">Please enter the API key from newsapi.org</small>
+    </div>
+
+    <div class="row">
+        
+        <button type="button" class="btn btn-light" [routerLink]="['/']">Back</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete()" [disabled]="authForm.invalid">Delete</button>
+        <button type="button" class="btn btn-success ml-auto" [disabled]="authForm.invalid" (click)="onSave()">Add</button>
+    
+    </div>
+    
+</form>
