@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
-import { API, COUNTRYLIST } from './models';
+import { API, COUNTRY } from './models';
 
 @Injectable()
 export class MyNewsAppDB extends Dexie {
 
     api: Dexie.Table<API, number>;
-    countryList: Dexie.Table<COUNTRYLIST, number>;
+    country: Dexie.Table<COUNTRY, string>;
 
     constructor() {
 
@@ -14,20 +14,11 @@ export class MyNewsAppDB extends Dexie {
 
         this.version(1).stores({
             api: '++id',
-        })
-
-        this.version(2).stores({
-            api: '++id',
-            countryList: '++id'
-        })
-
-        this.version(3).stores({
-            api: '++id',
-            countryList: '++id'
+            country: 'code'
         })
 
         this.api = this.table('api');
-        this.countryList = this.table('countryList');
+        this.country = this.table('country');
     }
 
 
@@ -48,12 +39,24 @@ export class MyNewsAppDB extends Dexie {
     } 
 
     //CountryList methods
-    saveList(list: COUNTRYLIST) :Promise<any> {
-        return this.countryList.add(list)
+    saveList(list: COUNTRY[]) {
+        for(let i of list) {
+            this.country.add(i)
+        }
     }
 
-    retrieveList() : Promise<COUNTRYLIST[]> {
-        return this.countryList.toArray()
+    retrieveList() : Promise<COUNTRY[]> {
+        return this.country.toArray()
     }
+
+    retrieveCountry(c: COUNTRY): Promise<COUNTRY[]> {
+        return this.country.where('code').equals(c.code).toArray()
+    }
+
+    saveArticles(c: COUNTRY) : Promise<any> {
+        return this.country.where('code').equals(c.code).modify(c)
+    }
+
+
 
 }

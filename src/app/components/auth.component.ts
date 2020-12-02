@@ -31,8 +31,6 @@ export class AuthComponent implements OnInit {
       }
 
     }).catch(e => {console.log(e)})
-    //this.API = {key: "Lalala"}
-
   }
 
 

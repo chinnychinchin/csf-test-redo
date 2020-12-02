@@ -8,14 +8,10 @@ export interface API {
 
 export interface COUNTRY {
 
-    flag: string,
+    flag?: string,
     code: string,
-    name: string
-
-}
-
-export interface COUNTRYLIST {
-
-    countries: COUNTRY[],
+    name: string,
+    news?: [],
+    date?: Date
 
 }

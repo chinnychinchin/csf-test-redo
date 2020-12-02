@@ -1,5 +1,25 @@
 <div class="row">
     <div class="col">
-        <h3>News from {{country}}</h3>
+        <h3>News from {{country.name}}</h3>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12 col-md-4" *ngFor="let n of news">
+        <div class="card">
+            <div class="card-header">
+                {{n.source.name}}
+            </div>
+            <img [src]="n.image" class="card-img-top" alt="no image">
+            <div class="card-body">
+                <h5 class="card-title">{{n.title}}</h5>
+                <p class="card-text">{{n.description}}</p>
+                <a [href]="n.url" target="_blank" class="btn btn-outline-primary">Go to news site</a>
+            </div>
+            <div class="card-footer text-muted">
+                {{n.publishedAt}}<p *ngIf="n.author != null" class="text-uppercase">by <span class="font-italic text-success">{{n.author}}</span></p>
+            </div>
+        </div>
     </div>
 </div>
